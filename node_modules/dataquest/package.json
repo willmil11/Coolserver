@@ -1,0 +1,37 @@
+{
+  "name": "dataquest",
+  "version": "1.0.0",
+  "description": "A module to create and manage databases with node.js",
+  "main": "dataquest.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willmil11/dataquest.git"
+  },
+  "keywords": [
+    "database",
+    "db",
+    "Db",
+    "DB",
+    "Database",
+    "DATABASE",
+    "data",
+    "databases",
+    "Databases",
+    "dataquest",
+    "Dataquest",
+    "json",
+    "node",
+    "node.js",
+    "js",
+    "javascript"
+  ],
+  "author": "willmil11",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/willmil11/dataquest/issues"
+  },
+  "homepage": "https://github.com/willmil11/dataquest#readme"
+}

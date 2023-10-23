@@ -1,0 +1,45 @@
+{
+  "name": "readyserver",
+  "version": "1.0.0",
+  "description": "Readyserver is a node.js package that allows you to deploy a modern Webserver super quickly.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willmil11/Readyserver.git"
+  },
+  "keywords": [
+    "webserver",
+    "server",
+    "web",
+    "static",
+    "folder",
+    "directory",
+    "nodejs",
+    "npm",
+    "node.js",
+    "js",
+    "node",
+    "cli",
+    "http",
+    "ready",
+    "easy",
+    "easily",
+    "quick",
+    "plugandplay"
+  ],
+  "author": "willmil11",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/willmil11/Readyserver/issues"
+  },
+  "homepage": "https://github.com/willmil11/Readyserver#readme",
+  "dependencies": {
+    "easynodes": "^1.0.1"
+  },
+  "bin": {
+    "readyserver": "app.js"
+  }
+}
