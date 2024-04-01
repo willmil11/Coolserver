@@ -55,9 +55,9 @@ var app = async function () {
 
     //Args:
     //Path-to-server-folder, port, logpath
-    var serverPath = args[0];
-    var port = args[1];
-    var logpath = args[2];
+    var serverPath = args[0] || process.env.RS_WWW_DIR || 'www';
+    var port = args[1] || process.env.RS_PORT || 8080;
+    var logpath = args[2] || process.env.RS_LOGS_DIR || 'logs';
 
     //Check if server path is valid
     if (serverPath == null) {
