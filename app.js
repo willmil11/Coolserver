@@ -5,7 +5,7 @@ var process = require("process");
 var path = require("path");
 
 var app = async function () {
-    console.log("[Readyserver] [Version] Running readyserver 1.0.2")
+    console.log("[Readyserver] [Version] Running readyserver 1.1.2")
     console.log("--")
     var easynodes;
     try {
