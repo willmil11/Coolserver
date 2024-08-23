@@ -47,6 +47,55 @@ var app = async function () {
             }
         }
     }
+    var tcpPortUsed;
+    try {
+        tcpPortUsed = require("tcp-port-used");
+    }
+    catch (error) {
+        //Try to require it another way
+        var output = await child_process.execSync("npm root -g");
+        output = output.toString().slice(0, output.toString().length - 1) + "/tcp-port-used/"
+        try {
+            tcpPortUsed = require(output);
+        }
+        catch (error) {
+            //Try to install vital dependency tcpPortUsed automatically
+            var ended = false;
+            var install = child_process.spawn("npm", ["install", "-g", "tcp-port-used"]);
+            install.on("exit", function (code) {
+                if (code === 0) {
+                    try {
+                        tcpPortUsed = require("tcp-port-used");
+                        end = true;
+                    }
+                    catch (error) {
+                        try {
+                            tcpPortUsed = require(output);
+                            end = true;
+                        }
+                        catch (error) {
+                            console.error("[Readyserver] [Main] Missing vital dependency: tcpPortUsed. Impossible to install automatically.")
+                            process.exit(1);
+                        }
+                    }
+                }
+                else {
+                    console.error("[Readyserver] [Main] Missing vital dependency: tcpPortUsed. Impossible to install automatically.")
+                    process.exit(1);
+                }
+            });
+            var wait = function(ms) {
+                return new Promise(function(resolve) {
+                    setTimeout(function() {
+                        resolve();  // Resolve the promise after the timeout
+                    }, ms);  // Use the ms parameter to set the timeout duration
+                });
+            };            
+            while (!(ended)) {
+                await wait(1);
+            }
+        }
+    }
 
     easynodes.init();
 
@@ -114,14 +163,17 @@ var app = async function () {
         process.exit(1);
     }
     //Check if port is available
-    try {
-        await child_process.execSync("lsof -t -i :" + port);
-        //Used
+    try{
+        var isportused = await tcpPortUsed.check(port, '127.0.0.1')
+    }
+    catch (error){
+        console.error("[Readyserver] [Main] Failed to check if port is used.")
+        process.exit(1)
+    }
+
+    if (isportused){
         console.error("[Readyserver] [Main] Port is already used.");
         process.exit(1);
-    }
-    catch (error) {
-        //Free
     }
 
     console.log("[Readyserver] [Main] Checking if custom 404 page exists...");

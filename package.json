@@ -1,6 +1,6 @@
 {
   "name": "readyserver",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Readyserver is a node.js package that allows you to deploy a modern Webserver super quickly.",
   "main": "app.js",
   "scripts": {
@@ -37,7 +37,8 @@
   },
   "homepage": "https://github.com/willmil11/Readyserver#readme",
   "dependencies": {
-    "easynodes": "^1.0.1"
+    "easynodes": "^1.0.1",
+    "tcp-port-used": "^1.0.2"
   },
   "bin": {
     "readyserver": "app.js"
