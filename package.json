@@ -1,6 +1,6 @@
 {
   "name": "readyserver",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Readyserver is a node.js package that allows you to deploy a modern Webserver super quickly.",
   "main": "app.js",
   "scripts": {
