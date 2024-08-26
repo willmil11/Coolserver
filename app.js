@@ -5,7 +5,7 @@ var process = require("process");
 var path = require("path");
 
 var app = async function () {
-    console.log("[Readyserver] [Version] Running readyserver 1.1.2")
+    console.log("[Readyserver] [Version] Running readyserver 1.1.3")
     console.log("--")
     var easynodes;
     try {
@@ -379,12 +379,18 @@ var app = async function () {
                     console.log(prefix() + "Index page is not cached. Processing request...");
                 }
             }
+            if (!(request.url === "/")){
+                console.log(prefix() + "Request url is \"" + request.url + "\"")
+            }
+            //if (!(request.url.endsWith("/"))){
+            //    request.url = request.url + "/" //?FIX FOR INCORRECT JS FILE PATH ACCESS URL. (beta fix)
+            //}                                   //!UPDATE ON BETA FIX, DO NOT REPEAT MISTAKE AGAIN EVER
             console.log(prefix() + "Checking if requested url exists in server folder...");
             if (easynodes.files.exists.sync(serverPath + request.url.slice(1))) {
                 console.log(prefix() + "Requested url exists in server folder. Checking requested url type...");
                 if (easynodes.files.getTypeOf.sync(serverPath + request.url.slice(1)) === "Folder"){
                     //We'll code this later
-                    //Actually we'll code this now github copilot :)
+                    //Actually we'll code this now github copilot :) | Not me reading this code to fix somethings 1-2years later and finding messages with github copilot in code comments
                     //I'm not sure if it'll work but we'll see
                     //It'll work trust me
                     //It'll work
@@ -402,6 +408,11 @@ var app = async function () {
                         }
                         try {
                             response.response = easynodes.files.read.sync(serverPath + request.url.slice(1) + "/index.html");
+                            if (!(request.url.endsWith("/"))){ //*Patched asset file path not matching with expected path with back dot method by patching url.
+                                console.log(prefix() + "Injecting \"asset path fix\" patch...")
+                                response.response = `<script>history.replaceState(null, "", "${request.url + "/"}") //This is an asset path fix by readyserver. Please do not interfere.</script>` + response.response
+                                console.log(prefix() + "Injected \"asset path fix\" patch.")
+                            }
                         }
                         catch (error) {
                             console.error(prefix() + "An error has occured while trying to read requested file...");
@@ -672,6 +683,7 @@ var app = async function () {
                     }
                 }
                 console.log(prefix() + "Requested url type is \"File\". Reading requested file...")
+
                 var response = {
                     "response": null,
                     "length": null
